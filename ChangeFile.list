@@ -1,0 +1,8 @@
+ ks-deployments/ks-web/ks-with-rice-bundled/src/main/resources/SpringBeans.xml
+ ks-deployments/ks-web/ks-with-rice-bundled/src/main/webapp/WEB-INF/web.xml
+ ks-enroll/ks-enroll-deployment-resources/src/main/resources/ks-core-krad-data-dictionary-config.xml
+ ks-enroll/ks-enroll-impl/src/main/resources/enrollServices-commons.xml
+ ks-enroll/ks-enroll-impl/src/main/resources/ksb/ks-enroll-context.xml
+ ks-enroll/ks-enroll-ui/src/main/resources/org/kuali/student/enrollment/main/KSFunctionalHomeView.xml
+ ks-lum/ks-cm-deployment-resources/src/main/resources/ks-cm-krad-data-dictionary-config.xml
+ ks-lum/ks-cm-krad/src/main/resources/org/kuali/student/cm/main/CurriculumHomeView.xml
