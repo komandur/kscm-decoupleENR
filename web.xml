@@ -32,13 +32,6 @@
         <param-value>ks-core,ks-cm,ks-web</param-value>
     </context-param>
 
-<!--
-    <context-param>
-        <param-name>spring.profiles.default</param-name>
-        <param-value>ks-core,ks-cm,ks-web</param-value>
-    </context-param>
-    -->
-
     <context-param>
         <param-name>org.apache.activemq.brokerURL</param-name>
         <param-value>vm://localhost</param-value>

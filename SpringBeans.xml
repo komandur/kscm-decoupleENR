@@ -89,32 +89,6 @@
     </beans>
 
 
-    <!--
-
-     <beans profile="ks-enroll">
-
-        <import resource="classpath:ksb/ks-enroll-context.xml"/>
-
-        <import resource="classpath:ks-enroll-krad-data-dictionary-config.xml"/>
-
-     </beans>-->
-
-    <beans profile="ks-ap">
-
-        <import resource="classpath:ks-ap-ui-context.xml"/>
-
-        <import resource="classpath:ks-ap-krad-data-dictionary-config.xml"/>
-
-    </beans>
-
-    <beans profile="ks-fa">
-
-        <import resource="classpath:ks-fa-ui-context.xml"/>
-
-        <import resource="classpath:ks-fa-krad-data-dictionary-config.xml"/>
-
-    </beans>
-
     <beans profile="ks-web">
 
         <bean id="kualiModuleService" class="org.kuali.rice.krad.service.impl.KualiModuleServiceImpl"/>
@@ -167,6 +141,7 @@
         </bean>
 
     </beans>
+
 
 
 </beans>

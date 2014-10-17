@@ -1,0 +1,514 @@
+Index: ks-lum/ks-cm-krad/src/main/resources/org/kuali/student/cm/main/CurriculumHomeView.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!--\n  Copyright 2005-2013 The Kuali Foundation\n\n  Licensed under the Educational Community License, Version 2.0 (the \"License\");\n  you may not use this file except in compliance with the License.\n  You may obtain a copy of the License at\n\n  http://www.opensource.org/licenses/ecl2.php\n\n  Unless required by applicable law or agreed to in writing, software\n  distributed under the License is distributed on an \"AS IS\" BASIS,\n  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n  See the License for the specific language governing permissions and\n  limitations under the License.\n-->\n<beans xmlns=\"http://www.springframework.org/schema/beans\"\n       xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n       xmlns:p=\"http://www.springframework.org/schema/p\"\n       xsi:schemaLocation=\"http://www.springframework.org/schema/beans\n                           http://www.springframework.org/schema/beans/spring-beans.xsd\">\n\n    <bean id=\"KS-CurriculumHome-View\" parent=\"KS-Uif-FormView\">\n        <property name=\"id\" value=\"curriculumHomeView\" />\n        <property name=\"headerText\" value=\"Curriculum Management KRAD\" />\n        <property name=\"formClass\" value=\"org.kuali.student.cm.main.form.CMHomeForm\" />\n        <property name=\"singlePageView\" value=\"true\" />\n        <property name=\"breadcrumbOptions.homewardPathBreadcrumbs\">\n            <list>\n                <ref bean=\"KS-HomewardPathBreadcrumbs-Home\"/>\n            </list>\n        </property>\n        <property name=\"breadcrumbItem.siblingBreadcrumbComponent\">\n            <bean parent=\"KS-Uif-Dynamic-BreadCrumb\"/>\n        </property>\n        <property name=\"page\">\n            <bean parent=\"Uif-Page\">\n                <property name=\"items\">\n                    <list>\n                        <ref bean=\"KS-CurriculumHome-Group\" />\n                    </list>\n                </property>\n            </bean>\n        </property>\n        <property name=\"footer\">\n            <bean parent=\"Uif-FooterBase\" />\n        </property>\n        <property name=\"cssClasses\">\n            <list merge=\"true\">\n                <value>ks-curriculum-home</value>\n            </list>\n        </property>\n        <!-- Custom JavaScript -->\n        <property name=\"additionalScriptFiles\">\n            <list merge=\"true\">\n                <value>ks-cm-krad/scripts/jquery.jqEasyCharCounter.custom.js</value>\n            </list>\n        </property>\n    </bean>\n\n    <bean id=\"KS-CurriculumHome-Group\" parent=\"Uif-HorizontalBoxGroup\">\n        <property name=\"items\">\n            <list>\n                <ref bean=\"KS-CurriculumHome-Create\" />\n                <ref bean=\"KS-CurriculumHome-Find\" />\n                <ref bean=\"KS-CurriculumHome-Tools\" />\n            </list>\n        </property>\n    </bean>\n\n    <bean id=\"KS-CurriculumHome-Create\" parent=\"Uif-VerticalBoxSection\">\n        <property name=\"headerText\" value=\"Create...\"/>\n        <property name=\"instructionalMessage\">\n            <bean parent=\"Uif-Message\">\n                <property name=\"cssClasses\">\n                    <list merge=\"true\">\n                        <value>cm-home-view-instruction</value>\n                    </list>\n                </property>\n                <property name=\"messageText\"\n                          value=\"Propose a new course or start a new program.\" />\n            </bean>\n        </property>\n        <property name=\"cssClasses\">\n            <list merge=\"true\">\n                <value>ks-curriculum-home-group</value>\n            </list>\n        </property>\n        <property name=\"items\">\n            <list>\n                <bean parent=\"Uif-Link\" p:linkText=\"Create a Course\"\n                      p:href=\"@{#ConfigProperties['application.url']}/kr-krad@{T(org.kuali.student.cm.common.util.CurriculumManagementConstants$ControllerRequestMappings).START_PROPOSAL}?viewId=startProposalView&amp;methodtocall=start\"/>\n            </list>\n        </property>\n    </bean>\n\n    <bean id=\"KS-CurriculumHome-Find\" parent=\"Uif-VerticalBoxSection\">\n        <property name=\"headerText\" value=\"Find...\"/>\n        <property name=\"instructionalMessage\">\n            <bean parent=\"Uif-Message\">\n                <property name=\"cssClasses\">\n                    <list merge=\"true\">\n                        <value>cm-home-view-instruction</value>\n                    </list>\n                </property>\n                <property name=\"messageText\"\n                          value=\"Search for proposals, courses and programs to view, modify or retire.\"  />\n            </bean>\n        </property>\n        <property name=\"cssClasses\">\n            <list merge=\"true\">\n                <value>ks-curriculum-home-group</value>\n            </list>\n        </property>\n        <property name=\"items\">\n            <list>\n                <bean parent=\"Uif-HeaderFive\" p:headerText=\"Courses\" />\n                <bean parent=\"Uif-Link\" p:linkText=\"Find a Course\"\n                      p:href=\"@{#ConfigProperties['application.url']}/kr-krad/lookup?viewId=CM-Proposal-Course-FindCourse&amp;renderMaintenanceLinks=true&amp;hideReturnLink=true\" />\n                <bean parent=\"Uif-Link\" p:linkText=\"Find a Course Proposal\"  p:href=\"@{#ConfigProperties['application.url']}/kr-krad/lookup?viewId=ksCMProposalLookup&amp;renderMaintenanceLinks=true&amp;hideReturnLink=true\"/>\n            </list>\n        </property>\n    </bean>\n\n    <bean id=\"KS-CurriculumHome-Tools\" parent=\"Uif-VerticalBoxGroup\">\n        <property name=\"cssClasses\">\n            <list merge=\"true\">\n                <value>ks-curriculum-home-group</value>\n            </list>\n        </property>\n        <property name=\"items\">\n            <list>\n                <ref bean=\"KS-CurriculumHome-Recently-Viewed\" />\n                <ref bean=\"KS-CurriculumHome-Management-Tools\" />\n            </list>\n        </property>\n    </bean>\n\n    <bean id=\"KS-CurriculumHome-Recently-Viewed\" parent=\"Uif-VerticalBoxSection\">\n        <property name=\"headerText\" value=\"Recently Viewed\"/>\n        <property name=\"instructionalMessage\">\n            <bean parent=\"Uif-Message\">\n                <property name=\"cssClasses\">\n                    <list merge=\"true\">\n                        <value>cm-home-view-instruction</value>\n                    </list>\n                </property>\n                <property name=\"messageText\"\n                          value=\"View courses and programs that you have recently visited.\" />\n            </bean>\n        </property>\n        <property name=\"items\">\n            <list>\n                <bean parent=\"Uif-Message\" p:render=\"@{#emptyList(recentlyViewedDocs)}\">\n                    <property name=\"cssClasses\">\n                        <list merge=\"true\">\n                            <value>cm-home-view-instruction</value>\n                        </list>\n                    </property>\n                    <property name=\"messageText\"\n                              value=\"You have no recently viewed items.\"  />\n                </bean>\n                <bean parent=\"Uif-ListCollectionSection\">\n                    <property name=\"collectionObjectClass\"\n                              value=\"org.kuali.student.lum.common.client.helpers.RecentDocInfo\" />\n                    <property name=\"propertyName\" value=\"recentlyViewedDocs\" />\n                    <property name=\"items\">\n                        <list>\n                            <bean parent=\"Uif-LinkField\" p:linkText=\"@{#lp.name}\" p:href=\"@{#lp.location}\" />\n                        </list>\n                    </property>\n                </bean>\n            </list>\n        </property>\n    </bean>\n\n    <bean id=\"KS-CurriculumHome-Management-Tools\" parent=\"Uif-VerticalBoxSection\">\n        <property name=\"headerText\" value=\"Management Tools\"/>\n        <property name=\"instructionalText\" value=\"Support tools for courses and programs.\" />\n        <property name=\"cssClasses\">\n            <list merge=\"true\">\n                <value>ks-curriculum-home-group</value>\n            </list>\n        </property>\n        <property name=\"items\">\n            <list>\n                <bean parent=\"Uif-Link\" p:linkText=\"Course Set Management\" />\n                <bean parent=\"Uif-Link\" p:linkText=\"Learning Objective Categories\"\n                      p:href=\"@{#ConfigProperties['application.url']}/kr-krad/loCategory?viewId=loCatMaintenanceView&amp;methodToCall=start\" />\n            </list>\n        </property>\n    </bean>\n\n</beans>
+===================================================================
+--- ks-lum/ks-cm-krad/src/main/resources/org/kuali/student/cm/main/CurriculumHomeView.xml	(revision 77743)
++++ ks-lum/ks-cm-krad/src/main/resources/org/kuali/student/cm/main/CurriculumHomeView.xml	(revision )
+@@ -20,6 +20,11 @@
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans.xsd">
+ 
++    <bean id="KS-HomewardPathBreadcrumbs-Home" parent="Uif-BreadcrumbItem">
++        <property name="label" value="Home"/>
++        <property name="url.baseUrl" value="launch"/>
++        <property name="url.viewId" value="ksFunctionalHomeView"/>
++    </bean>
+     <bean id="KS-CurriculumHome-View" parent="KS-Uif-FormView">
+         <property name="id" value="curriculumHomeView" />
+         <property name="headerText" value="Curriculum Management KRAD" />
+\ No newline at end of file
+Index: ks-enroll/ks-enroll-ui/src/main/resources/org/kuali/student/enrollment/main/KSFunctionalHomeView.xml
+===================================================================
+--- ks-enroll/ks-enroll-ui/src/main/resources/org/kuali/student/enrollment/main/KSFunctionalHomeView.xml	(revision 77743)
++++ ks-enroll/ks-enroll-ui/src/main/resources/org/kuali/student/enrollment/main/KSFunctionalHomeView.xml	(revision 77743)
+@@ -1,89 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<beans xmlns="http://www.springframework.org/schema/beans"
+-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+-       xmlns:p="http://www.springframework.org/schema/p"
+-       xsi:schemaLocation="http://www.springframework.org/schema/beans
+-                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+-
+-    <bean id="KS-FunctionalHome-View" parent="KS-Uif-FormView" p:additionalCssClasses="ks-home">
+-        <property name="id" value="ksFunctionalHomeView"/>
+-        <property name="formClass" value="org.kuali.student.enrollment.main.form.LaunchForm"/>
+-        <property name="onLoadScript" value="jQuery('#Uif-BreadcrumbWrapper').remove(); jQuery('.ks-unified-header').hide();"/>
+-        <property name="stickyHeader" value="false"/>
+-        <property name="items">
+-            <list>
+-                <bean parent="KS-Uif-Page" p:disclosure.render="false">
+-                    <property name="items">
+-                        <list>
+-                            <!--<bean parent="Uif-Label" p:labelText="Kuali Student Modules" p:renderColon="false" p:cssClasses="ks-student-home-page-header"/>-->
+-                            <bean parent="Uif-Label" p:labelText="Click a module to get started." p:renderColon="false" p:cssClasses="ks-student-home-area-instruction"/>
+-                            <ref bean="KS-StudentHome-Setup"/>
+-                        </list>
+-                    </property>
+-                </bean>
+-            </list>
+-        </property>
+-    </bean>
+-
+-    <bean id="KS-StudentHome-Setup" parent="Uif-HorizontalBoxSection">
+-        <property name="items">
+-            <list>
+-                <bean id="KS-StudentHome-Enrollment" parent="KS-Uif-Student-Home-Area" p:onClickScript="window.location.href='@{#ConfigProperties['application.url']}/kr-krad/launch?methodToCall=start&amp;viewId=enrollmentHomeView';">
+-                    <property name="items">
+-                        <list>
+-                            <bean parent="KS-Uif-Student-Home-Area-Image">
+-                                <property name="source" value="@{#ConfigProperties['ks.externalizable.images.url']}/homepage/enrollment.png"/>
+-                            </bean>
+-                            <bean parent="Uif-HeaderFour"/>
+-                            <bean parent="KS-Uif-Student-Home-Area-App-Name" p:headerText="Enrollment" />
+-                            <bean parent="Uif-Label" p:labelText="Create and Manage Course Offerings" p:renderColon="false" />
+-                        </list>
+-                    </property>
+-                </bean>
+-                <bean id="KS-StudentHome-CurriculumManagement" parent="KS-Uif-Student-Home-Area" p:onClickScript="window.location.href='@{#ConfigProperties['ks.lum.MainEntryPoint']}';">
+-                    <property name="items">
+-                        <list>
+-                            <bean parent="KS-Uif-Student-Home-Area-Image">
+-                                <property name="source" value="@{#ConfigProperties['ks.externalizable.images.url']}/homepage/cm.png"/>
+-                            </bean>
+-                            <bean parent="KS-Uif-Student-Home-Area-App-Name" p:headerText="Curriculum Management" />
+-                            <bean parent="Uif-Label" p:labelText="Create and Manage Catalog Courses and Programs" p:renderColon="false" />
+-                        </list>
+-                    </property>
+-                </bean>
+-                <bean id="KS-StudentHome-CurriculumManagementKrad" parent="KS-Uif-Student-Home-Area" p:onClickScript="window.location.href='@{#ConfigProperties['application.url']}/kr-krad/cmHome?methodToCall=start&amp;viewId=curriculumHomeView';">
+-                    <property name="items">
+-                        <list>
+-                            <bean parent="KS-Uif-Student-Home-Area-Image">
+-                                <property name="source" value="@{#ConfigProperties['ks.externalizable.images.url']}/homepage/cm.png"/>
+-                            </bean>
+-                            <bean parent="KS-Uif-Student-Home-Area-App-Name" p:headerText="Curriculum Management KRAD" />
+-                            <bean parent="Uif-Label" p:labelText="Create and Manage Catalog Courses and Programs" p:renderColon="false" />
+-                        </list>
+-                    </property>
+-                </bean>
+-                <bean id="KS-StudentHome-KSMaintenance" parent="KS-Uif-Student-Home-Area" p:onClickScript="window.location.href='@{#ConfigProperties['ks.rice.url']}/portal.do';">
+-                    <property name="items">
+-                        <list>
+-                            <bean parent="KS-Uif-Student-Home-Area-Image">
+-                                <property name="source" value="@{#ConfigProperties['ks.externalizable.images.url']}/homepage/ks_maintenance.png"/>
+-                            </bean>
+-                            <bean parent="KS-Uif-Student-Home-Area-App-Name" p:headerText="KS Maintenance" />
+-                            <bean parent="Uif-Label" p:labelText="Access to Rice Portal" p:renderColon="false" />
+-                        </list>
+-                    </property>
+-                </bean>
+-            </list>
+-        </property>
+-    </bean>
+-
+-    <bean id="KS-Uif-Student-Home-Area" parent="Uif-VerticalBoxSection" p:additionalCssClasses="ks-student-home-area">
+-    </bean>
+-
+-    <bean id="KS-Uif-Student-Home-Area-Image" parent="Uif-Image" p:additionalCssClasses="ks-student-home-area-image">
+-    </bean>
+-
+-    <bean id="KS-Uif-Student-Home-Area-App-Name" parent="Uif-HeaderThree" p:additionalCssClasses="ks-student-home-area-app-name">
+-    </bean>
+-
+-</beans>
+\ No newline at end of file
+Index: ks-lum/ks-cm-krad/src/main/resources/org/kuali/student/cm/KSFunctionalHomeView.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- ks-lum/ks-cm-krad/src/main/resources/org/kuali/student/cm/KSFunctionalHomeView.xml	(revision )
++++ ks-lum/ks-cm-krad/src/main/resources/org/kuali/student/cm/KSFunctionalHomeView.xml	(revision )
+@@ -0,0 +1,65 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<beans xmlns="http://www.springframework.org/schema/beans"
++       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
++       xmlns:p="http://www.springframework.org/schema/p"
++       xsi:schemaLocation="http://www.springframework.org/schema/beans
++                           http://www.springframework.org/schema/beans/spring-beans.xsd">
++
++    <bean id="KS-FunctionalHome-View" parent="KS-Uif-FormView" p:additionalCssClasses="ks-home">
++        <property name="id" value="ksFunctionalHomeView"/>
++        <property name="formClass" value="org.kuali.student.enrollment.main.form.LaunchForm"/>
++        <property name="onLoadScript" value="jQuery('#Uif-BreadcrumbWrapper').remove(); jQuery('.ks-unified-header').hide();"/>
++        <property name="stickyHeader" value="false"/>
++        <property name="items">
++            <list>
++                <bean parent="KS-Uif-Page" p:disclosure.render="false">
++                    <property name="items">
++                        <list>
++                            <bean parent="Uif-Label" p:labelText="Click a module to get started." p:renderColon="false" p:cssClasses="ks-student-home-area-instruction"/>
++                            <ref bean="KS-StudentHome-Setup"/>
++                        </list>
++                    </property>
++                </bean>
++            </list>
++        </property>
++    </bean>
++
++    <bean id="KS-StudentHome-Setup" parent="Uif-HorizontalBoxSection">
++        <property name="items">
++            <list>
++                <bean id="KS-StudentHome-CurriculumManagementKrad" parent="KS-Uif-Student-Home-Area" p:onClickScript="window.location.href='@{#ConfigProperties['application.url']}/kr-krad/cmHome?methodToCall=start&amp;viewId=curriculumHomeView';">
++                    <property name="items">
++                        <list>
++                            <bean parent="KS-Uif-Student-Home-Area-Image">
++                                <property name="source" value="@{#ConfigProperties['ks.externalizable.images.url']}/homepage/cm.png"/>
++                            </bean>
++                            <bean parent="KS-Uif-Student-Home-Area-App-Name" p:headerText="Curriculum Management KRAD" />
++                            <bean parent="Uif-Label" p:labelText="Create and Manage Catalog Courses and Programs" p:renderColon="false" />
++                        </list>
++                    </property>
++                </bean>
++                <bean id="KS-StudentHome-KSMaintenance" parent="KS-Uif-Student-Home-Area" p:onClickScript="window.location.href='@{#ConfigProperties['ks.rice.url']}/portal.do';">
++                    <property name="items">
++                        <list>
++                            <bean parent="KS-Uif-Student-Home-Area-Image">
++                                <property name="source" value="@{#ConfigProperties['ks.externalizable.images.url']}/homepage/ks_maintenance.png"/>
++                            </bean>
++                            <bean parent="KS-Uif-Student-Home-Area-App-Name" p:headerText="KS Maintenance" />
++                            <bean parent="Uif-Label" p:labelText="Access to Rice Portal" p:renderColon="false" />
++                        </list>
++                    </property>
++                </bean>
++            </list>
++        </property>
++    </bean>
++
++    <bean id="KS-Uif-Student-Home-Area" parent="Uif-VerticalBoxSection" p:additionalCssClasses="ks-student-home-area">
++    </bean>
++
++    <bean id="KS-Uif-Student-Home-Area-Image" parent="Uif-Image" p:additionalCssClasses="ks-student-home-area-image">
++    </bean>
++
++    <bean id="KS-Uif-Student-Home-Area-App-Name" parent="Uif-HeaderThree" p:additionalCssClasses="ks-student-home-area-app-name">
++    </bean>
++
++</beans>
+\ No newline at end of file
+Index: ks-lum/ks-cm-deployment-resources/src/main/resources/ks-cm-krad-data-dictionary-config.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<!--\r\n Copyright 2013 The Kuali Foundation\r\n\r\n Licensed under the Educational Community License, Version 2.0 (the \"License\");\r\n you may not use this file except in compliance with the License.\r\n You may obtain a copy of the License at\r\n\r\n http://www.opensource.org/licenses/ecl2.php\r\n\r\n Unless required by applicable law or agreed to in writing, software\r\n distributed under the License is distributed on an \"AS IS\" BASIS,\r\n WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\r\n See the License for the specific language governing permissions and\r\n limitations under the License.\r\n-->\r\n<beans xmlns=\"http://www.springframework.org/schema/beans\"\r\n       xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n       xsi:schemaLocation=\"http://www.springframework.org/schema/beans\r\n                           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd\">\r\n\r\n    <beans profile=\"ks-cm\">\r\n        <bean id=\"ks-cm-krad-data-dictionary-config\" class=\"java.util.ArrayList\">\r\n            <constructor-arg index=\"0\">\r\n                <list>\r\n                    <!-- KSCM Application Bean Files -->\r\n                    <!-- Curriculum Management Course Info -->\r\n                    <value>classpath:org/kuali/student/cm/course/proposal/CourseMaintenanceView.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/course/proposal/StartProposalView.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/course/view/ViewCourseView.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/course/retire/CourseRetireMaintenanceView.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/course/versions/CourseVersionsView.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/krms/CourseRuleMaintenance.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/course/proposal/CourseViewCourseInfo.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/course/proposal/CourseViewGovernance.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/course/proposal/CourseViewCourseLogistics.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/course/proposal/CourseViewLearningObjectives.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/course/proposal/CourseViewCourseRequisites.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/course/proposal/CourseViewActiveDates.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/course/proposal/CourseViewFinancials.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/course/proposal/CourseViewSupportingDocuments.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/course/proposal/review/CourseViewReviewProposal.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/course/proposal/CourseViewAuthorsAndCollaborators.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/lo/LoCategoryMaintenanceView.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/lookup/CluInstructorInfoWrapperLookupView.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/lookup/CourseJointInfoWrapperLookupView.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/lookup/OrganizationInfoWrapperLookupView.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/lookup/CollaboratorWrapperLookupView.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/lookup/LoCategoryInfoWrapperLookupView.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/lookup/LoDisplayInfoWrapperLookupView.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/cm-datadictionary-overrides.xml</value>\r\n                    <value>classpath:ks-CourseInfo-dictionary.xml</value>\r\n                    <value>classpath:ks-ProposalInfo-dictionary.xml</value>\r\n                    <value>classpath:ks-ActivityInfo-dictionary.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/UifKSCMDefinitions.xml</value>\r\n\r\n                    <!-- <value>classpath:org/kuali/student/cm/CMFunctionalHomeView.xml</value>  This file currently doesn't exist -->\r\n                    <value>classpath:org/kuali/student/cm/main/CurriculumHomeView.xml</value>\r\n                    <!-- KSCM-727 Curriculum Management Course -->\r\n                    <value>classpath:org/kuali/student/cm/main/CourseSelectView.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/lookup/FindCourseLookupView.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/krms/CMLUCustomComponents.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/lookup/ProposalLookup.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/comment/CMCommentView.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/comment/CMDecisionView.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/course/retire/RetireCourseRetireInfo.xml</value>\r\n                    <value>classpath:org/kuali/student/cm/course/retire/review/RetireCourseReviewProposal.xml</value>\r\n                </list>\r\n            </constructor-arg>\r\n        </bean>\r\n    </beans>\r\n</beans>\r\n
+===================================================================
+--- ks-lum/ks-cm-deployment-resources/src/main/resources/ks-cm-krad-data-dictionary-config.xml	(revision 77743)
++++ ks-lum/ks-cm-deployment-resources/src/main/resources/ks-cm-krad-data-dictionary-config.xml	(revision )
+@@ -25,12 +25,12 @@
+                 <list>
+                     <!-- KSCM Application Bean Files -->
+                     <!-- Curriculum Management Course Info -->
++                    <value>classpath:org/kuali/student/cm/KSFunctionalHomeView.xml</value>
+                     <value>classpath:org/kuali/student/cm/course/proposal/CourseMaintenanceView.xml</value>
+                     <value>classpath:org/kuali/student/cm/course/proposal/StartProposalView.xml</value>
+                     <value>classpath:org/kuali/student/cm/course/view/ViewCourseView.xml</value>
+                     <value>classpath:org/kuali/student/cm/course/retire/CourseRetireMaintenanceView.xml</value>
+                     <value>classpath:org/kuali/student/cm/course/versions/CourseVersionsView.xml</value>
+-                    <value>classpath:org/kuali/student/cm/krms/CourseRuleMaintenance.xml</value>
+                     <value>classpath:org/kuali/student/cm/course/proposal/CourseViewCourseInfo.xml</value>
+                     <value>classpath:org/kuali/student/cm/course/proposal/CourseViewGovernance.xml</value>
+                     <value>classpath:org/kuali/student/cm/course/proposal/CourseViewCourseLogistics.xml</value>
+@@ -65,6 +65,15 @@
+                     <value>classpath:org/kuali/student/cm/comment/CMDecisionView.xml</value>
+                     <value>classpath:org/kuali/student/cm/course/retire/RetireCourseRetireInfo.xml</value>
+                     <value>classpath:org/kuali/student/cm/course/retire/review/RetireCourseReviewProposal.xml</value>
++                    <!-- KRMS -->
++                    <value>classpath:org/kuali/student/cm/krms/CourseRuleMaintenance.xml</value>
++                    <value>classpath:org/kuali/student/core/krms/KSKRMSCustomComponents.xml</value>
++                    <value>classpath:org/kuali/student/core/krms/KSKRMSRuleMaintenance.xml</value>
++                    <value>classpath:org/kuali/student/lum/lu/ui/krms/LUCustomComponents.xml</value>
++                    <value>classpath:org/kuali/rice/krms/PropositionEditorView.xml</value>
++                    <value>classpath:org/kuali/rice/krms/RuleEditMaintenance.xml</value>
++                    <value>classpath:org/kuali/rice/krms/RuleManagementView.xml</value>
++                    <value>classpath:org/kuali/rice/krms/AgendaManagementView.xml</value>
+                 </list>
+             </constructor-arg>
+         </bean>
+Index: ks-deployments/ks-web/ks-with-rice-bundled/src/main/resources/SpringBeans.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!--\n Copyright 2008-2009 The Kuali Foundation\n \n Licensed under the Educational Community License, Version 2.0 (the \"License\");\n you may not use this file except in compliance with the License.\n You may obtain a copy of the License at\n \n http://www.opensource.org/licenses/ecl2.php\n \n Unless required by applicable law or agreed to in writing, software\n distributed under the License is distributed on an \"AS IS\" BASIS,\n WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n See the License for the specific language governing permissions and\n limitations under the License.\n-->\n<beans xmlns=\"http://www.springframework.org/schema/beans\"\n       xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n       xsi:schemaLocation=\"http://www.springframework.org/schema/beans\n                           http://www.springframework.org/schema/beans/spring-beans.xsd\">\n\n\t<bean class=\"org.springframework.beans.factory.config.PropertyPlaceholderConfigurer\">\n\t\t<property name=\"properties\" ref=\"configProperties\" />\n\t</bean>\n\n\t<bean id=\"bootstrapConfig\" class=\"org.kuali.rice.core.impl.config.property.ConfigFactoryBean\">\n\t\t<property name=\"configLocations\">\n\t\t\t<list>\n\t\t\t\t<value>classpath:META-INF/ks-with-rice-bundled-config.xml</value>\n                <value>classpath:META-INF/org/kuali/student/ks-with-rice-bundled/project-rice-properties.xml</value>\n\t\t\t</list>\n\t\t</property>\n\t</bean>\n\t\n\t<bean class=\"org.springframework.beans.factory.config.MethodInvokingFactoryBean\">\n\t\t<property name=\"staticMethod\" value=\"org.kuali.rice.core.impl.config.property.ConfigInitializer.initialize\" />\n\t\t<property name=\"arguments\">\n\t\t\t<list><ref bean=\"bootstrapConfig\"/></list>\n\t\t</property>\n\t</bean>\n\n\t<bean id=\"configProperties\" class=\"org.springframework.beans.factory.config.MethodInvokingFactoryBean\" >\n\t\t<property name=\"targetObject\" ref=\"bootstrapConfig\" />\n\t\t<property name=\"targetMethod\" value=\"getProperties\" />\n\t</bean>\n\n\t<!-- Bootstrap Rice  -->\n\t<import resource=\"classpath:org/kuali/rice/core/RiceJTASpringBeans.xml\"/>\n\t<import resource=\"classpath:org/kuali/rice/core/RiceDataSourceSpringBeans.xml\"/>\n\t<import resource=\"classpath:org/kuali/rice/config/RiceSpringBeans.xml\"/>\n        \n\t<import resource=\"classpath:org/kuali/rice/core/CommonSpringBeans.xml\"/>\n\n\t<bean id=\"allDictionaryFileLocations\" class=\"org.kuali.student.common.spring.CollectionAggregatingFactoryBean\">\n                <property name=\"collectionBeanReferences\" >\n\t\t\t<list>\n\t\t\t\t<value>ks-core-dictionary-file-locations</value>\n\t\t\t\t<value>ks-enroll-dictionary-file-locations</value>\n\t\t\t\t<value>ks-cm-dictionary-file-locations</value>\n\t\t\t\t<value>ks-ap-dictionary-file-locations</value>\t\t\t\n\t\t\t\t<value>ks-fa-dictionary-file-locations</value>\t\n\t\t\t</list>\n\t\t</property>\n\t</bean>\n\t\n\t<!-- for diagnostic purposes to see which profiles are active -->\n\t<bean class=\"org.kuali.student.common.spring.DisplayActiveProfiles\" />\n\n\n<beans profile=\"ks-core\">\n\n\t<import resource=\"classpath:ksb/ks-core-no-tx-context.xml\"/>\n    <import resource=\"classpath:mq/ks-mq-context.xml\"/>\n\n\t<import resource=\"classpath:ks-core-krad-data-dictionary-config.xml\"/>\n</beans>\n\n<beans profile=\"ks-cm\">\n    <import resource=\"classpath:ksb/ks-lu-no-tx-context.xml\"/>\n    <import resource=\"classpath:ks-cm-krad-data-dictionary-config.xml\"/>\n</beans>\n\n\n \n <beans profile=\"ks-enroll\">\n \n    <import resource=\"classpath:ksb/ks-enroll-context.xml\"/>\n    \n    <import resource=\"classpath:ks-enroll-krad-data-dictionary-config.xml\"/>\n \n </beans>\n \n <beans profile=\"ks-ap\">\n \n    <import resource=\"classpath:ks-ap-ui-context.xml\"/>\n    \n    <import resource=\"classpath:ks-ap-krad-data-dictionary-config.xml\"/>\n\n</beans>\n\n<beans profile=\"ks-fa\">\n \n    <import resource=\"classpath:ks-fa-ui-context.xml\"/>\n    \n    <import resource=\"classpath:ks-fa-krad-data-dictionary-config.xml\"/>\n\n</beans>\n\n<beans profile=\"ks-web\">\n\n\t<bean id=\"kualiModuleService\" class=\"org.kuali.rice.krad.service.impl.KualiModuleServiceImpl\" />\n\n    <bean id=\"studentRiceModule\" class=\"org.kuali.rice.krad.service.impl.ModuleServiceBase\">\n        <property name=\"moduleConfiguration\" ref=\"studentRiceModuleConfiguration\" />\n        <property name=\"kualiModuleService\" ref=\"kualiModuleService\" />\n    </bean>\n\n\t<bean id=\"studentRiceModuleConfiguration\" class=\"org.kuali.rice.krad.bo.ModuleConfiguration\">\n\t\t<property name=\"namespaceCode\" value=\"KS-SYS\" />\n\t\t<property name=\"initializeDataDictionary\" value=\"true\" />\n\t\t<property name=\"dataDictionaryPackages\">\n\t\t\n\t\t\t<bean class=\"org.kuali.student.common.spring.CollectionAggregatingFactoryBean\">\n                <property name=\"collectionBeanReferences\" >\n                \t<list>\n                \t\t<value>ks-core-krad-data-dictionary-config</value>\n                \t\t<value>ks-enroll-krad-data-dictionary-config</value>\n                \t\t<value>ks-ap-krad-data-dictionary-config</value>\n                \t\t<value>ks-fa-krad-data-dictionary-config</value>\n                \t\t<value>ks-cm-krad-data-dictionary-config</value>\n                \t</list>\n                </property>\n\t\t\t</bean>\n\t\t</property>\n\t\t\n\t\t<property name=\"packagePrefixes\">\n\t\t\t<list>\n\t\t\t\t<value>org.kuali.rice.student.</value>\n\t\t\t\t<value>org.kuali.student.enrollment.</value>\n                <!-- added below 2 items for CM screen Find a Course Proposal and Open Document for Course Proposal -->\n                <value>org.kuali.student.r2.core</value>\n                <value>org.kuali.student.cm</value>\n\t\t\t</list>\n\t\t</property>\n\n        <property name=\"databaseRepositoryFilePaths\">\n          <list>\n            <value>OJB-cm-repository.xml</value>\n          </list>\n        </property>\n\n        <property name=\"externalizableBusinessObjectImplementations\">\n            <map>\n                <entry key=\"org.kuali.rice.student.bo.KualiStudentKimAttributes\"\n                       value=\"org.kuali.rice.student.bo.KualiStudentKimAttributes\"/>\n            </map>\n        </property>\n    </bean>\n\n</beans>\n\n\t\n\t\n</beans>\n
+===================================================================
+--- ks-deployments/ks-web/ks-with-rice-bundled/src/main/resources/SpringBeans.xml	(revision 77743)
++++ ks-deployments/ks-web/ks-with-rice-bundled/src/main/resources/SpringBeans.xml	(revision )
+@@ -19,146 +19,129 @@
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans.xsd">
+ 
+-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
++    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+-		<property name="properties" ref="configProperties" />
++        <property name="properties" ref="configProperties"/>
+-	</bean>
++    </bean>
+ 
+-	<bean id="bootstrapConfig" class="org.kuali.rice.core.impl.config.property.ConfigFactoryBean">
+-		<property name="configLocations">
+-			<list>
+-				<value>classpath:META-INF/ks-with-rice-bundled-config.xml</value>
++    <bean id="bootstrapConfig" class="org.kuali.rice.core.impl.config.property.ConfigFactoryBean">
++        <property name="configLocations">
++            <list>
++                <value>classpath:META-INF/ks-with-rice-bundled-config.xml</value>
+                 <value>classpath:META-INF/org/kuali/student/ks-with-rice-bundled/project-rice-properties.xml</value>
+-			</list>
+-		</property>
+-	</bean>
+-	
+-	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
++            </list>
++        </property>
++    </bean>
++
++    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+-		<property name="staticMethod" value="org.kuali.rice.core.impl.config.property.ConfigInitializer.initialize" />
++        <property name="staticMethod" value="org.kuali.rice.core.impl.config.property.ConfigInitializer.initialize"/>
+-		<property name="arguments">
++        <property name="arguments">
+-			<list><ref bean="bootstrapConfig"/></list>
++            <list>
++                <ref bean="bootstrapConfig"/>
++            </list>
+-		</property>
+-	</bean>
++        </property>
++    </bean>
+ 
+-	<bean id="configProperties" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" >
++    <bean id="configProperties" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+-		<property name="targetObject" ref="bootstrapConfig" />
++        <property name="targetObject" ref="bootstrapConfig"/>
+-		<property name="targetMethod" value="getProperties" />
++        <property name="targetMethod" value="getProperties"/>
+-	</bean>
++    </bean>
+ 
+-	<!-- Bootstrap Rice  -->
+-	<import resource="classpath:org/kuali/rice/core/RiceJTASpringBeans.xml"/>
+-	<import resource="classpath:org/kuali/rice/core/RiceDataSourceSpringBeans.xml"/>
+-	<import resource="classpath:org/kuali/rice/config/RiceSpringBeans.xml"/>
+-        
+-	<import resource="classpath:org/kuali/rice/core/CommonSpringBeans.xml"/>
++    <!-- Bootstrap Rice  -->
++    <import resource="classpath:org/kuali/rice/core/RiceJTASpringBeans.xml"/>
++    <import resource="classpath:org/kuali/rice/core/RiceDataSourceSpringBeans.xml"/>
++    <import resource="classpath:org/kuali/rice/config/RiceSpringBeans.xml"/>
++
++    <import resource="classpath:org/kuali/rice/core/CommonSpringBeans.xml"/>
+ 
+-	<bean id="allDictionaryFileLocations" class="org.kuali.student.common.spring.CollectionAggregatingFactoryBean">
++    <bean id="allDictionaryFileLocations" class="org.kuali.student.common.spring.CollectionAggregatingFactoryBean">
+-                <property name="collectionBeanReferences" >
++        <property name="collectionBeanReferences">
+-			<list>
+-				<value>ks-core-dictionary-file-locations</value>
+-				<value>ks-enroll-dictionary-file-locations</value>
+-				<value>ks-cm-dictionary-file-locations</value>
+-				<value>ks-ap-dictionary-file-locations</value>			
+-				<value>ks-fa-dictionary-file-locations</value>	
+-			</list>
+-		</property>
+-	</bean>
+-	
+-	<!-- for diagnostic purposes to see which profiles are active -->
++            <list>
++                <value>ks-core-dictionary-file-locations</value>
++                <value>ks-enroll-dictionary-file-locations</value>
++                <value>ks-cm-dictionary-file-locations</value>
++                <value>ks-ap-dictionary-file-locations</value>
++                <value>ks-fa-dictionary-file-locations</value>
++            </list>
++        </property>
++    </bean>
++
++    <!-- for diagnostic purposes to see which profiles are active -->
+-	<bean class="org.kuali.student.common.spring.DisplayActiveProfiles" />
++    <bean class="org.kuali.student.common.spring.DisplayActiveProfiles"/>
+ 
+ 
+-<beans profile="ks-core">
++    <beans profile="ks-core">
+ 
+-	<import resource="classpath:ksb/ks-core-no-tx-context.xml"/>
+-    <import resource="classpath:mq/ks-mq-context.xml"/>
++        <import resource="classpath:ksb/ks-core-no-tx-context.xml"/>
++        <import resource="classpath:mq/ks-mq-context.xml"/>
+ 
+-	<import resource="classpath:ks-core-krad-data-dictionary-config.xml"/>
+-</beans>
++        <import resource="classpath:ks-core-krad-data-dictionary-config.xml"/>
++    </beans>
+ 
+-<beans profile="ks-cm">
+-    <import resource="classpath:ksb/ks-lu-no-tx-context.xml"/>
+-    <import resource="classpath:ks-cm-krad-data-dictionary-config.xml"/>
++    <beans profile="ks-cm">
++        <import resource="classpath:ksb/ks-lu-no-tx-context.xml"/>
++        <import resource="classpath:ks-cm-krad-data-dictionary-config.xml"/>
++        <alias name="jtaUserTransaction" alias="userTransaction"/>
++        <bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager" lazy-init="true">
++            <property name="userTransaction" ref="jtaUserTransaction"/>
++            <property name="transactionManager" ref="jtaTransactionManager"/>
++            <property name="allowCustomIsolationLevels" value="true"/>
++        </bean>
+-</beans>
++    </beans>
+ 
+-
+- 
+- <beans profile="ks-enroll">
+- 
+-    <import resource="classpath:ksb/ks-enroll-context.xml"/>
+-    
+-    <import resource="classpath:ks-enroll-krad-data-dictionary-config.xml"/>
+- 
+- </beans>
+- 
+- <beans profile="ks-ap">
+- 
+-    <import resource="classpath:ks-ap-ui-context.xml"/>
+-    
+-    <import resource="classpath:ks-ap-krad-data-dictionary-config.xml"/>
+-
+-</beans>
+-
+-<beans profile="ks-fa">
+- 
+-    <import resource="classpath:ks-fa-ui-context.xml"/>
+-    
+-    <import resource="classpath:ks-fa-krad-data-dictionary-config.xml"/>
+-
+-</beans>
+ 
+-<beans profile="ks-web">
++    <beans profile="ks-web">
+ 
+-	<bean id="kualiModuleService" class="org.kuali.rice.krad.service.impl.KualiModuleServiceImpl" />
++        <bean id="kualiModuleService" class="org.kuali.rice.krad.service.impl.KualiModuleServiceImpl"/>
+ 
+-    <bean id="studentRiceModule" class="org.kuali.rice.krad.service.impl.ModuleServiceBase">
++        <bean id="studentRiceModule" class="org.kuali.rice.krad.service.impl.ModuleServiceBase">
+-        <property name="moduleConfiguration" ref="studentRiceModuleConfiguration" />
++            <property name="moduleConfiguration" ref="studentRiceModuleConfiguration"/>
+-        <property name="kualiModuleService" ref="kualiModuleService" />
++            <property name="kualiModuleService" ref="kualiModuleService"/>
+-    </bean>
++        </bean>
+ 
+-	<bean id="studentRiceModuleConfiguration" class="org.kuali.rice.krad.bo.ModuleConfiguration">
++        <bean id="studentRiceModuleConfiguration" class="org.kuali.rice.krad.bo.ModuleConfiguration">
+-		<property name="namespaceCode" value="KS-SYS" />
++            <property name="namespaceCode" value="KS-SYS"/>
+-		<property name="initializeDataDictionary" value="true" />
++            <property name="initializeDataDictionary" value="true"/>
+-		<property name="dataDictionaryPackages">
+-		
+-			<bean class="org.kuali.student.common.spring.CollectionAggregatingFactoryBean">
++            <property name="dataDictionaryPackages">
++
++                <bean class="org.kuali.student.common.spring.CollectionAggregatingFactoryBean">
+-                <property name="collectionBeanReferences" >
++                    <property name="collectionBeanReferences">
+-                	<list>
+-                		<value>ks-core-krad-data-dictionary-config</value>
+-                		<value>ks-enroll-krad-data-dictionary-config</value>
+-                		<value>ks-ap-krad-data-dictionary-config</value>
+-                		<value>ks-fa-krad-data-dictionary-config</value>
+-                		<value>ks-cm-krad-data-dictionary-config</value>
+-                	</list>
+-                </property>
+-			</bean>
+-		</property>
+-		
+-		<property name="packagePrefixes">
+-			<list>
+-				<value>org.kuali.rice.student.</value>
+-				<value>org.kuali.student.enrollment.</value>
+-                <!-- added below 2 items for CM screen Find a Course Proposal and Open Document for Course Proposal -->
+-                <value>org.kuali.student.r2.core</value>
+-                <value>org.kuali.student.cm</value>
+-			</list>
+-		</property>
++                        <list>
++                            <value>ks-core-krad-data-dictionary-config</value>
++                            <value>ks-enroll-krad-data-dictionary-config</value>
++                            <value>ks-ap-krad-data-dictionary-config</value>
++                            <value>ks-fa-krad-data-dictionary-config</value>
++                            <value>ks-cm-krad-data-dictionary-config</value>
++                        </list>
++                    </property>
++                </bean>
++            </property>
++
++            <property name="packagePrefixes">
++                <list>
++                    <value>org.kuali.rice.student.</value>
++                    <value>org.kuali.student.enrollment.</value>
++                    <!-- added below 2 items for CM screen Find a Course Proposal and Open Document for Course Proposal -->
++                    <value>org.kuali.student.r2.core</value>
++                    <value>org.kuali.student.cm</value>
++                </list>
++            </property>
+ 
+-        <property name="databaseRepositoryFilePaths">
+-          <list>
+-            <value>OJB-cm-repository.xml</value>
+-          </list>
+-        </property>
++            <property name="databaseRepositoryFilePaths">
++                <list>
++                    <value>OJB-cm-repository.xml</value>
++                </list>
++            </property>
+ 
+-        <property name="externalizableBusinessObjectImplementations">
+-            <map>
+-                <entry key="org.kuali.rice.student.bo.KualiStudentKimAttributes"
+-                       value="org.kuali.rice.student.bo.KualiStudentKimAttributes"/>
+-            </map>
+-        </property>
+-    </bean>
++            <property name="externalizableBusinessObjectImplementations">
++                <map>
++                    <entry key="org.kuali.rice.student.bo.KualiStudentKimAttributes"
++                           value="org.kuali.rice.student.bo.KualiStudentKimAttributes"/>
++                </map>
++            </property>
++        </bean>
+ 
+-</beans>
++    </beans>
+ 
+-	
+-	
++
++
+ </beans>
+Index: ks-deployments/ks-web/ks-with-rice-bundled/src/main/webapp/WEB-INF/web.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-app xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" version=\"2.5\"\n\txsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee   http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd\">\n\t<display-name>Kuali Student Embedded</display-name>\n\n    <context-param>\n      <param-name>environment</param-name>\n      <param-value>dev</param-value>\n    </context-param>\n  \n    <!-- Change this if you want to use a different Spring file -->\n    <context-param>\n      <param-name>web.bootstrap.spring.file</param-name>\n      <param-value>classpath:SpringBeans.xml</param-value>\n    </context-param>\n\t \n\t<!-- KS Spring Security Config - Begin -->\n\t<context-param>\n    \t<param-name>contextConfigLocation</param-name>\n\t\t<param-value>classpath:ks-spring-security.xml</param-value>\n  \t</context-param>\n\n    <!-- HTML escape for XSS prevention -->\n    <context-param>\n        <param-name>defaultHtmlEscape</param-name>\n        <param-value>false</param-value>\n    </context-param>\n\n\t<!-- By default activate all modules -->\n \t<context-param>\n        <param-name>spring.profiles.default</param-name>\n        <param-value>ks-core,ks-cm,ks-enroll,ks-ap,ks-web</param-value>\n    </context-param>\n\n    <context-param>\n        <param-name>org.apache.activemq.brokerURL</param-name>\n        <param-value>vm://localhost</param-value>\n    </context-param>\n\n    <context-param>\n        <param-name>org.apache.activemq.embeddedBroker</param-name>\n        <param-value>true</param-value>\n    </context-param>\n\n\t<listener>\n    \t<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>\n  \t</listener>\n\n    <filter>\n\t  \t<filter-name>springSecurityFilterChain</filter-name>\n\t  \t<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>\n\t</filter>\n\n\t<filter-mapping>\n\t  <filter-name>springSecurityFilterChain</filter-name>\n\t  <url-pattern>/*</url-pattern>\n\t</filter-mapping>\n    <!-- KS Spring Security Config - End -->\n\n\t<filter>\n        <filter-name>HideWebInfFilter</filter-name>\n        <filter-class>org.kuali.rice.krad.web.filter.HideWebInfFilter</filter-class>\n    </filter>\n    \n    <filter>\n\t\t<filter-name>ResponseOverrideFilter</filter-name>\n\t\t<filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>\n\t</filter>\n\n\t<filter>\n\t  <filter-name>BootstrapFilter</filter-name>\n\t  <filter-class>org.kuali.rice.krad.web.filter.BootstrapFilter</filter-class>\n\t</filter>\n\n    <filter>\n\t\t<filter-name>UserLoginFilter</filter-name>\n        <filter-class>org.kuali.rice.krad.web.filter.UserLoginFilter</filter-class>\n    </filter>\n\n    <filter>\n<filter-name>UserPreferencesFilter</filter-name>\n<filter-class>org.kuali.rice.kew.web.UserPreferencesFilter</filter-class>\n</filter>\n\n<filter-mapping>\n<filter-name>HideWebInfFilter</filter-name>\n<url-pattern>/*</url-pattern>\n</filter-mapping>\n\n<filter-mapping>\n<filter-name>ResponseOverrideFilter</filter-name>\n<url-pattern>*.do</url-pattern>\n</filter-mapping>\n\n<filter-mapping>\n<filter-name>BootstrapFilter</filter-name>\n<servlet-name>action</servlet-name>\n</filter-mapping>\n\n<filter-mapping>\n<filter-name>UserLoginFilter</filter-name>\n<servlet-name>action</servlet-name>\n</filter-mapping>\n\n<filter-mapping>\n<filter-name>UserPreferencesFilter</filter-name>\n<servlet-name>action</servlet-name>\n</filter-mapping>\n\n<filter-mapping>\n<filter-name>BootstrapFilter</filter-name>\n<servlet-name>notification</servlet-name>\n</filter-mapping>\n\n<filter-mapping>\n<filter-name>UserLoginFilter</filter-name>\n<servlet-name>notification</servlet-name>\n</filter-mapping>\n\n<filter-mapping>\n<filter-name>UserPreferencesFilter</filter-name>\n<servlet-name>notification</servlet-name>\n</filter-mapping>\n\n<!-- added by bonnie   -->\n    <filter-mapping>\n        <filter-name>UserLoginFilter</filter-name>\n        <servlet-name>ks-krad</servlet-name>\n    </filter-mapping>\n    \n    <!-- for KCB Spring Web MVC pages -->\n    <filter-mapping>\n        <filter-name>BootstrapFilter</filter-name>\n        <servlet-name>kcb</servlet-name>\n    </filter-mapping>\n    \n   \t<filter-mapping>\n\t\t<filter-name>UserLoginFilter</filter-name>\n\t\t<servlet-name>kcb</servlet-name>\n\t</filter-mapping>\n    \n    <filter-mapping>\n        <filter-name>UserPreferencesFilter</filter-name>\n       <servlet-name>kcb</servlet-name>\n    </filter-mapping>\n    \n    <filter-mapping>\n        <filter-name>BootstrapFilter</filter-name>\n        <servlet-name>edoclite</servlet-name>\n    </filter-mapping>\n    \n    <filter-mapping>\n\t\t<filter-name>UserLoginFilter</filter-name>\n\t\t<servlet-name>edoclite</servlet-name>\n\t</filter-mapping>\n\n    <filter-mapping>\n        <filter-name>UserPreferencesFilter</filter-name>\n       <servlet-name>edoclite</servlet-name>\n    </filter-mapping>\n\n    <listener>\n      <listener-class>org.kuali.rice.core.web.listener.KualiInitializeListener</listener-class>\n    </listener>\n\n    <listener>\n\t\t<listener-class>org.kuali.rice.core.web.listener.BootstrapListener</listener-class>\n\t</listener>\n\n    <listener>\n\t  <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>\n\t</listener>\n\n\t<listener>\n        <listener-class>org.kuali.rice.krad.web.listener.KualiHttpSessionListener</listener-class>\n\t</listener>\n\t\n    <listener>\n        <listener-class>org.kuali.rice.core.framework.config.module.WebModuleLoaderListener</listener-class>\n    </listener>\n\n    <servlet>\n\t\t<servlet-name>action</servlet-name>\n\t\t<servlet-class>org.kuali.rice.kns.web.struts.action.KualiActionServlet</servlet-class>\n        <init-param>\n          <param-name>config</param-name>\n          <param-value>/WEB-INF/struts-config.xml</param-value>\n        </init-param>\n        <init-param>\n          <param-name>config/core</param-name>\n          <param-value>/core/WEB-INF/struts-config.xml</param-value>\n        </init-param>\n\t\t<init-param>\n\t\t\t<param-name>debug</param-name>\n\t\t\t<param-value>3</param-value>\n\t\t</init-param>\n\t\t<init-param>\n\t\t\t<param-name>detail</param-name>\n\t\t\t<param-value>3</param-value>\n\t\t</init-param>\n\t\t<load-on-startup>0</load-on-startup>\n\t</servlet>\t\n   \n    <!-- Notification system servlets -->\n    <!-- Notification System Spring MVC UI -->\n    <servlet>\n        <servlet-name>notification</servlet-name>\n        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>\n        <init-param>\n          <param-name>contextConfigLocation</param-name>\n          <param-value>ken/WEB-INF/notification-servlet.xml</param-value>\n        </init-param>\n        <init-param>\n          <description>this init parameter is Ken's module prefix within the containing webapp, it is propagated as a\n                       property in the XmlApplicationContext\n          </description>\n          <param-name>prefix</param-name>\n          <param-value>/ken</param-value>\n        </init-param>\n        <load-on-startup>2</load-on-startup>\n    </servlet>\n\n\t<servlet>\n\t\t<servlet-name>dwr-invoker</servlet-name>\n\t\t<servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>\n\t\t<init-param>\n\t\t\t<param-name>debug</param-name>\n\t\t\t<param-value>true</param-value>\n\t\t</init-param>\n\t\t<init-param>\n  \t\t\t<param-name>config-kew</param-name>\n  \t\t\t<param-value>/WEB-INF/dwr-kew.xml</param-value>\n\t\t</init-param>\n\t\t<init-param>\n  \t\t\t<param-name>config-kns</param-name>\n  \t\t\t<param-value>/WEB-INF/dwr-kns.xml</param-value>\n\t\t</init-param>\n\t\t<load-on-startup>1</load-on-startup>\n\t</servlet>\n\n    <!-- KCB servlets -->\n    <servlet>\n        <servlet-name>kcb</servlet-name>\n        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>\n        <init-param>\n          <param-name>contextConfigLocation</param-name>\n          <param-value>kcb/WEB-INF/kcb-servlet.xml</param-value>\n        </init-param>\n        <init-param>\n          <description>this init parameter is KCB's module prefix within the containing webapp, it is propagated as a\n                       property in the XmlApplicationContext\n          </description>\n          <param-name>prefix</param-name>\n          <param-value>/kcb</param-value>\n        </init-param>\n        <load-on-startup>2</load-on-startup>\n\t</servlet>\n\n\t<servlet>\n\t\t<servlet-name>remoting</servlet-name>\n\t\t<servlet-class>org.kuali.rice.ksb.messaging.servlet.KSBDispatcherServlet</servlet-class>\n\t\t<load-on-startup>1</load-on-startup>\n\t</servlet>\n\n\t<servlet>\n\t\t<servlet-name>export</servlet-name>\n\t\t<servlet-class>org.kuali.rice.core.web.impex.ExportServlet</servlet-class>\n\t</servlet>\n\n\t<servlet>\n\t\t<servlet-name>exportsecurity</servlet-name>\n\t\t<servlet-class>org.kuali.rice.ksb.security.admin.ExportServlet</servlet-class>\n\t</servlet>\n\n\t<servlet>\n\t\t<servlet-name>attachment</servlet-name>\n\t\t<servlet-class>org.kuali.rice.kew.notes.web.AttachmentServlet</servlet-class>\n\t</servlet>\n\n\t<servlet>\n\t\t<servlet-name>edoclite</servlet-name>\n\t\t<servlet-class>org.kuali.rice.edl.impl.EDLServlet</servlet-class>\n\t</servlet>\n\t\n    <servlet>\n       <servlet-name>ks-krad</servlet-name>\n       <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>\n       <load-on-startup>3</load-on-startup>\n    </servlet>\n\n    <servlet>\n        <servlet-name>AjaxServlet</servlet-name>\n        <servlet-class>org.apache.activemq.web.MessageListenerServlet</servlet-class>\n        <load-on-startup>1</load-on-startup>\n    </servlet>\n\n    <filter>\n        <filter-name>DefaultContext</filter-name>\n        <filter-class>org.kuali.student.ap.framework.context.support.DefaultKsapContext$Filter</filter-class>\n    </filter>\n\n    <filter-mapping>\n        <filter-name>DefaultContext</filter-name>\n        <servlet-name>ks-krad</servlet-name>\n    </filter-mapping>\n\n\t<!--  FTL test -->\n    <servlet>\n        <servlet-name>cr-performance-test</servlet-name>\n        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>\n        <load-on-startup>1</load-on-startup>\n    </servlet>\n\n    <servlet-mapping>\n        <servlet-name>cr-performance-test</servlet-name>\n        <url-pattern>/cr-performance-test/*</url-pattern>\n    </servlet-mapping>\n\t<servlet-mapping>\n\t\t<servlet-name>remoting</servlet-name>\n\t\t<url-pattern>/remoting/*</url-pattern>\n\t</servlet-mapping>\n\n\t<servlet-mapping>\n\t\t<servlet-name>action</servlet-name>\n\t\t<url-pattern>*.do</url-pattern>\n\t</servlet-mapping>\n\n    <servlet-mapping>\n        <servlet-name>notification</servlet-name>\n        <url-pattern>*.form</url-pattern>\n    </servlet-mapping>\n\n\t<servlet-mapping>\n        <servlet-name>kcb</servlet-name>\n        <url-pattern>*.kcb</url-pattern>\n    </servlet-mapping>\n\n\t<servlet-mapping>\n\t\t<servlet-name>dwr-invoker</servlet-name>\n\t\t<url-pattern>/dwr/*</url-pattern>\n\t</servlet-mapping>\n\n\t<servlet-mapping>\n\t\t<servlet-name>export</servlet-name>\n\t\t<url-pattern>/export/*</url-pattern>\n\t</servlet-mapping>\n\n\t<servlet-mapping>\n\t\t<servlet-name>exportsecurity</servlet-name>\n\t\t<url-pattern>/exportsecurity/*</url-pattern>\n\t</servlet-mapping>\n\n\t<servlet-mapping>\n\t\t<servlet-name>attachment</servlet-name>\n\t\t<url-pattern>/kew/attachment/*</url-pattern>\n\t</servlet-mapping>\n\n\t<servlet-mapping>\n\t\t<servlet-name>edoclite</servlet-name>\n\t\t<url-pattern>/kew/EDocLite</url-pattern>\n\t</servlet-mapping>\n\n\t<servlet-mapping>\n\t\t<servlet-name>remoting</servlet-name>\n\t\t<url-pattern>/services/*</url-pattern>\n\t</servlet-mapping>\n\n    <servlet-mapping>\n        <servlet-name>AjaxServlet</servlet-name>\n        <url-pattern>/kr-krad/amq</url-pattern>\n    </servlet-mapping>\n\n\t<!--  added by bonnie -->\n\t<servlet-mapping>\n      <servlet-name>ks-krad</servlet-name>\n      <url-pattern>/kr-krad/*</url-pattern>\n    </servlet-mapping> \t\n    \n\n\t<session-config>\n\t\t<session-timeout>60</session-timeout>\n\t</session-config>\n\n\t<welcome-file-list>\n\t\t<welcome-file>index.html</welcome-file>\n        <welcome-file>index.jsp</welcome-file>\n        <welcome-file>registration/index.jsp</welcome-file>\n\t</welcome-file-list>\n\t\n\t<!-- only need to include this for the kuali tlds\n\t     since tld file will only be searched from within other jars -->\n\t<jsp-config>\n\t\t<taglib>\n\t\t\t<taglib-uri>http://www.kuali.org/jsp/jstl/functions</taglib-uri>\n\t\t\t<taglib-location>/WEB-INF/tld/kuali-func.tld</taglib-location>\n\t\t</taglib>\n\t\t\n\t\t<!-- customized struts tags -->\n\t\t<taglib>\n\t\t\t<taglib-uri>http://www.kuali.org/struts.apache.org/tags-html</taglib-uri>\n\t\t\t<taglib-location>/WEB-INF/tld/kuali-struts-html.tld</taglib-location>\n\t\t</taglib>\n\t\t<taglib>\n\t\t\t<taglib-uri>http://www.kuali.org/struts.apache.org/tags-html-el</taglib-uri>\n\t\t\t<taglib-location>/WEB-INF/tld/kuali-struts-html-el.tld</taglib-location>\n\t\t</taglib>\n\t</jsp-config>\n\t\n\t<!-- GWT Dispatcher Servlets & Mappings -->\n\t<servlet>\n\t\t<servlet-name>GWT-CORE</servlet-name>\n\t\t<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>\n\t\t<init-param>\n\t\t\t<param-name>contextConfigLocation</param-name>\n\t\t\t<param-value>classpath:core-gwt-context.xml</param-value>\n\t\t</init-param>\t\t\n        <load-on-startup>2</load-on-startup>\n\t</servlet>\n\t<servlet>\n\t\t<servlet-name>GWT-LUM</servlet-name>\n\t\t<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>\n\t\t<init-param>\n\t\t\t<param-name>contextConfigLocation</param-name>\n\t\t\t<param-value>classpath:lum-gwt-context.xml</param-value>\n\t\t</init-param>\t\t\n        <load-on-startup>2</load-on-startup>\n\t</servlet>\n\t\n\t<servlet-mapping>\n\t\t<servlet-name>GWT-LUM</servlet-name>\n\t\t<url-pattern>/org.kuali.student.lum.ui.requirements.Requirements/rpcservices/*</url-pattern>\n\t</servlet-mapping>\n\n\t<servlet-mapping>\n\t\t<servlet-name>GWT-LUM</servlet-name>\n\t\t<url-pattern>/org.kuali.student.lum.lu.ui.course.Course/rpcservices/*</url-pattern>\n\t</servlet-mapping>\n\n\t<servlet-mapping>\n\t\t<servlet-name>GWT-LUM</servlet-name>\n\t\t<url-pattern>/org.kuali.student.lum.lu.ui.main.LUMMain/rpcservices/*</url-pattern>\n\t</servlet-mapping>\t\n\t\n\t<servlet-mapping>\n\t\t<servlet-name>GWT-LUM</servlet-name>\n\t\t<url-pattern>/org.kuali.student.lum.lu.ui.workflow.CollaboratorRequest/rpcservices/*</url-pattern>\n\t</servlet-mapping>\t\n\t\n\t<servlet-mapping>\n\t\t<servlet-name>GWT-CORE</servlet-name>\n\t\t<url-pattern>/org.kuali.student.core.organization.ui.OrgEntry/rpcservices/*</url-pattern>\n\t</servlet-mapping>\t\n\t\n\t<!-- Export Download HTTP Servlet -->\n    <servlet>  \n   \t \t<servlet-name>ExportDownloadHTTPServlet</servlet-name>  \n   \t \t<servlet-class>org.kuali.student.common.ui.server.gwt.ExportDocumentDownload</servlet-class>  \n   \t </servlet>  \n   \t \n   \t <servlet-mapping>  \n   \t \t\t<servlet-name>ExportDownloadHTTPServlet</servlet-name>  \n   \t\t\t<url-pattern>/exportDownloadHTTPServlet</url-pattern>  \n   \t </servlet-mapping>  \n\t<!-- HTTP Servlet end -->\n\t\n</web-app>\n\n
+===================================================================
+--- ks-deployments/ks-web/ks-with-rice-bundled/src/main/webapp/WEB-INF/web.xml	(revision 77743)
++++ ks-deployments/ks-web/ks-with-rice-bundled/src/main/webapp/WEB-INF/web.xml	(revision )
+@@ -26,10 +26,10 @@
+         <param-value>false</param-value>
+     </context-param>
+ 
+-	<!-- By default activate all modules -->
++
+  	<context-param>
+         <param-name>spring.profiles.default</param-name>
+-        <param-value>ks-core,ks-cm,ks-enroll,ks-ap,ks-web</param-value>
++        <param-value>ks-core,ks-cm,ks-web</param-value>
+     </context-param>
+ 
+     <context-param>
